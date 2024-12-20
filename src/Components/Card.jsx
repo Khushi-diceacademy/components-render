@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Card.css";
 let data = [
   {
     image:
@@ -8,6 +8,7 @@ let data = [
     description:
       "Lorem ipsum dolor sit. ipsum dolor sit amet consectetur adipisicing elit. Quae dignissimoi vel",
     InStock: true,
+    message: "this is a new product",
   },
   {
     image:
@@ -16,6 +17,7 @@ let data = [
     description:
       "Lorem ipsum dolor sit. ipsum dolor sit amet consectetur adipisicing elit. Quae dignissimos deleniti vel",
     InStock: false,
+    message: "this is best product bring them",
   },
   {
     image:
@@ -24,33 +26,45 @@ let data = [
     description:
       "Lorem ipsum dolor sit. ipsum dolor sit amet consectetur adipisicing elit. Quae dignissimos deleniti vel",
     InStock: false,
+    message: "this is latest product",
   },
 ];
-function Card() {
+function Card(prop) {
+  function handleClick(message) {
+    alert(message);
+  }
   return (
-    <div className="w-full h-screen bg-zinc-200 flex items-center justify-center gap-4">
-      {data.map((elem, index) => (
-        <div
-          key={index}
-          className="w-52 bg-zinc-100 rounded-md overflow-hidden"
-        >
-          <div className="w-full h-32 bg-zinc-300">
-            <img
-              className="w-full h-full object-cover"
-              src={elem.image}
-              alt=""
-            />
+    <>
+      <div className="w-full h-screen bg-zinc-200 flex items-center justify-center gap-4">
+        <div>{prop.children}</div>
+        {data.map((elem, index) => (
+          <div
+            key={index}
+            className="w-52 bg-zinc-100 rounded-md overflow-hidden"
+          >
+            <div className="w-full h-32 bg-zinc-300">
+              <img
+                className="w-full h-full object-cover"
+                src={elem.image}
+                alt=""
+              />
+            </div>
+            <div className="w-full px-3 py-4">
+              <h2 className="font-semibold avatar">{elem.name}</h2>
+              <p className="text-xs mt-3">{elem.description}</p>
+            </div>
+            <button
+              onClick={() => handleClick(`you click on ${elem.message}`)}
+              className={`px-4 py-1 ${
+                elem.InStock ? "bg-sky-600" : "bg-red-600"
+              } rounded-md text-xs text-white ml-3 mb-2`}
+            >
+              {elem.InStock ? "Instock" : "OutofStock"}
+            </button>
           </div>
-          <div className="w-full px-3 py-4">
-            <h2 className="font-semibold">{elem.name}</h2>
-            <p className="text-xs mt-3">{elem.description}</p>
-          </div>
-          <button className={`px-4 py-1 ${elem.InStock?'bg-sky-600':'bg-red-600'} rounded-md text-xs text-white ml-3 mb-2`}>
-           {elem.InStock?'Instock':'OutofStock'}
-          </button>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 
